@@ -28,10 +28,8 @@ public class ForgeBuycraftPlatform implements IBuycraftPlatform {
         put(Level.SEVERE, org.apache.logging.log4j.Level.ERROR);
         put(Level.WARNING, org.apache.logging.log4j.Level.WARN);
         put(Level.INFO, org.apache.logging.log4j.Level.INFO);
-        //TODO Config
         put(Level.FINE, org.apache.logging.log4j.Level.DEBUG);
         put(Level.FINER, org.apache.logging.log4j.Level.TRACE);
-        //TODO Finest
         put(Level.ALL, org.apache.logging.log4j.Level.ALL);
     }};
 

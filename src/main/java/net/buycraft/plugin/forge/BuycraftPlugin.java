@@ -18,13 +18,14 @@ import net.buycraft.plugin.forge.util.VersionCheck;
 import net.buycraft.plugin.shared.Setup;
 import net.buycraft.plugin.shared.config.BuycraftConfiguration;
 import net.buycraft.plugin.shared.config.BuycraftI18n;
-import net.buycraft.plugin.shared.tasks.ListingUpdateTask;
 import net.buycraft.plugin.shared.tasks.PlayerJoinCheckTask;
 import net.minecraft.command.CommandSource;
 import net.minecraft.command.Commands;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.text.Style;
+import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.event.ClickEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModLoadingContext;
@@ -48,7 +49,7 @@ import java.util.logging.Level;
 @Mod("buycraft")
 public class BuycraftPlugin {
 
-    private static final Logger LOGGER = LogManager.getLogger("Buycraft");
+    private static final Logger LOGGER = LogManager.getLogger("Tebex");
 
     public static final Style SUCCESS_STYLE = new Style().setColor(TextFormatting.GREEN);
     public static final Style INFO_STYLE = new Style().setColor(TextFormatting.YELLOW);
@@ -67,7 +68,6 @@ public class BuycraftPlugin {
 
     private BuyCraftAPI apiClient;
     private DuePlayerFetcher duePlayerFetcher;
-    private ListingUpdateTask listingUpdateTask;
     private ServerInformation serverInformation;
     private OkHttpClient httpClient;
     private IBuycraftPlatform platform;
@@ -93,6 +93,10 @@ public class BuycraftPlugin {
             //region Commands
             event.getCommandDispatcher().register(this.configureCommand(Commands.literal("tebex")));
             event.getCommandDispatcher().register(this.configureCommand(Commands.literal("buycraft")));
+
+            if (!configuration.isDisableBuyCommand())
+                configuration.getBuyCommandName().forEach(cmd ->
+                        event.getCommandDispatcher().register(Commands.literal(cmd).executes(new BuyCommand(this))));
             //endregion
 
             try {
@@ -149,12 +153,6 @@ public class BuycraftPlugin {
             scheduledTasks.add(ForgeScheduledTask.Builder.create().withAsync(true).withInterval(20).withDelay(20).withTask(completedCommandsTask).build());
             playerJoinCheckTask = new PlayerJoinCheckTask(platform);
             scheduledTasks.add(ForgeScheduledTask.Builder.create().withInterval(20).withDelay(20).withTask(playerJoinCheckTask).build());
-            listingUpdateTask = new ListingUpdateTask(platform, null);
-            if (apiClient != null) {
-                getLogger().info("Fetching all server packages...");
-                listingUpdateTask.run();
-            }
-            scheduledTasks.add(ForgeScheduledTask.Builder.create().withAsync(true).withDelay(20 * 60 * 20).withInterval(20 * 60 * 20).withTask(listingUpdateTask).build());
 
             if (serverInformation != null) {
                 scheduledTasks.add(ForgeScheduledTask.Builder.create()
@@ -182,7 +180,6 @@ public class BuycraftPlugin {
                                 .then(Commands.argument("code", StringArgumentType.word()).executes(couponCmd::delete))))
                 .then(Commands.literal("forcecheck").executes(new ForceCheckCmd(this)))
                 .then(Commands.literal("info").executes(new InfoCmd(this)))
-                .then(Commands.literal("refresh").executes(new RefreshCmd(this)))
                 .then(Commands.literal("report").executes(new ReportCmd(this)))
                 .then(Commands.literal("secret")
                         .then(Commands.argument("secret", StringArgumentType.word()).executes(new SecretCmd(this))));
@@ -279,10 +276,6 @@ public class BuycraftPlugin {
 
     public DuePlayerFetcher getDuePlayerFetcher() {
         return duePlayerFetcher;
-    }
-
-    public ListingUpdateTask getListingUpdateTask() {
-        return listingUpdateTask;
     }
 
     public ServerInformation getServerInformation() {

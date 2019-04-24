@@ -41,7 +41,6 @@ public class SecretCmd implements Command<CommandSource> {
 
             ServerInformation information = plugin.getServerInformation();
             plugin.setApiClient(client);
-            plugin.getListingUpdateTask().run();
             plugin.getConfiguration().setServerKey(secret);
 
             try {
