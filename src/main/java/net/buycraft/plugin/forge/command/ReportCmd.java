@@ -32,7 +32,6 @@ public class ReportCmd implements Command<CommandSource> {
 
         plugin.getPlatform().executeAsync(() -> {
             String serverIP = plugin.getServer().getServerHostname().trim().isEmpty() ? "0.0.0.0" : plugin.getServer().getServerHostname().trim();
-            int serverPort = plugin.getServer().getServerPort();
 
             ReportBuilder builder = ReportBuilder.builder()
                     .client(plugin.getHttpClient())
@@ -40,8 +39,7 @@ public class ReportCmd implements Command<CommandSource> {
                     .platform(plugin.getPlatform())
                     .duePlayerFetcher(plugin.getDuePlayerFetcher())
                     .ip(serverIP)
-                    .port(serverPort)
-                    .listingUpdateTask(plugin.getListingUpdateTask())
+                    .port(plugin.getServer().getServerPort())
                     .serverOnlineMode(plugin.getServer().isServerInOnlineMode())
                     .build();
 
