@@ -1,27 +1,19 @@
 modLoader="javafml" #mandatory
 loaderVersion="[25,)" #mandatory (24 is current forge version)
 
-[[mods]] #mandatory
-modId="buycraft" #mandatory
-version="${file.jarVersion}" #mandatory
-displayName="BuycraftX" #mandatory
+[[mods]]
+modId="buycraftx"
+version="${file.jarVersion}"
+displayName="BuycraftX"
 displayURL="https://www.tebex.io/"
-authors="Tebex, theminecoder" #optional
+authors="Tebex, theminecoder"
 # The description text for the mod (multi line!) (#mandatory)
 description='''
-Forge version of the BuycraftX plugin for servers
-'''
+Forge version of the BuycraftX plugin for servers'''
 
-# A dependency - use the . to indicate dependency for a specific modid. Dependencies are optional.
 [[dependencies.buycraft]]
     modId="forge"
     mandatory=true
     versionRange="[25,)"
-    ordering="NONE"
-    side="BOTH"
-[[dependencies.buyrcraft]]
-    modId="minecraft"
-    mandatory=true
-    versionRange="[1.13.2]"
     ordering="NONE"
     side="BOTH"

@@ -23,7 +23,7 @@ public class CouponCmd {
         try {
             coupon = CouponUtil.parseArguments(StringArgumentType.getString(context, "data").split(" "));
         } catch (Exception e) {
-            ForgeMessageUtil.sendMessage(context.getSource(), new TextComponentString(plugin.getI18n().get("coupon_creation_arg_parse_failure", e.getMessage()))
+            ForgeMessageUtil.sendMessage(context.getSource(), new TextComponentString(ForgeMessageUtil.format("coupon_creation_arg_parse_failure", e.getMessage()))
                     .setStyle(BuycraftPlugin.ERROR_STYLE));
             return 0;
         }
@@ -31,10 +31,10 @@ public class CouponCmd {
         plugin.getPlatform().executeAsync(() -> {
             try {
                 plugin.getApiClient().createCoupon(coupon).execute();
-                ForgeMessageUtil.sendMessage(context.getSource(), new TextComponentString(plugin.getI18n().get("coupon_creation_success", coupon.getCode()))
+                ForgeMessageUtil.sendMessage(context.getSource(), new TextComponentString(ForgeMessageUtil.format("coupon_creation_success", coupon.getCode()))
                         .setStyle(BuycraftPlugin.SUCCESS_STYLE));
             } catch (IOException e) {
-                ForgeMessageUtil.sendMessage(context.getSource(), new TextComponentString(plugin.getI18n().get("generic_api_operation_error"))
+                ForgeMessageUtil.sendMessage(context.getSource(), new TextComponentString(ForgeMessageUtil.format("generic_api_operation_error"))
                         .setStyle(BuycraftPlugin.ERROR_STYLE));
             }
         });
@@ -47,12 +47,13 @@ public class CouponCmd {
         plugin.getPlatform().executeAsync(() -> {
             try {
                 plugin.getApiClient().deleteCoupon(code).execute();
-                ForgeMessageUtil.sendMessage(context.getSource(), new TextComponentString(plugin.getI18n().get("coupon_deleted")).setStyle(BuycraftPlugin.SUCCESS_STYLE));
-            } catch (IOException e) {
+                ForgeMessageUtil.sendMessage(context.getSource(), new TextComponentString(ForgeMessageUtil.format("coupon_deleted")).setStyle(BuycraftPlugin.SUCCESS_STYLE));
+            } catch (Exception e) {
                 ForgeMessageUtil.sendMessage(context.getSource(), new TextComponentString(e.getMessage()).setStyle(BuycraftPlugin.ERROR_STYLE));
             }
         });
 
-        return 0;
+//        ForgeMessageUtil.sendMessage(context.getSource(), new TextComponentString("pls3"));
+        return 1;
     }
 }

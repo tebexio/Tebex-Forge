@@ -2,6 +2,7 @@ package net.buycraft.plugin.forge.util;
 
 import net.buycraft.plugin.data.responses.Version;
 import net.buycraft.plugin.forge.BuycraftPlugin;
+import net.buycraft.plugin.forge.command.ForgeMessageUtil;
 import net.buycraft.plugin.shared.util.VersionUtil;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraftforge.common.MinecraftForge;
@@ -41,7 +42,7 @@ public class VersionCheck {
         if (!latestVersionString.equals(pluginVersion)) {
             upToDate = !isVersionGreater(pluginVersion, latestVersionString);
             if (!upToDate) {
-                plugin.getLogger().info(plugin.getI18n().get("update_available", lastKnownVersion.getVersion()));
+                plugin.getLogger().info(ForgeMessageUtil.format("update_available", lastKnownVersion.getVersion()));
             }
         }
     }
@@ -50,7 +51,7 @@ public class VersionCheck {
     public void onPostLogin(final PlayerEvent.PlayerLoggedInEvent event) {
         if (event.getPlayer().hasPermissionLevel(2) && !upToDate) {
             plugin.getPlatform().executeAsyncLater(() ->
-                    event.getPlayer().sendMessage(new TextComponentString(plugin.getI18n().get("update_available", lastKnownVersion.getVersion()))),
+                    event.getPlayer().sendMessage(new TextComponentString(ForgeMessageUtil.format("update_available", lastKnownVersion.getVersion()))),
                     3, TimeUnit.SECONDS);
         }
     }

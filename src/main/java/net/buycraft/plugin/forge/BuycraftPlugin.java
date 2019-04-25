@@ -1,5 +1,6 @@
 package net.buycraft.plugin.forge;
 
+import com.google.common.collect.Maps;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import net.buycraft.plugin.BuyCraftAPI;
@@ -19,6 +20,7 @@ import net.buycraft.plugin.shared.Setup;
 import net.buycraft.plugin.shared.config.BuycraftConfiguration;
 import net.buycraft.plugin.shared.config.BuycraftI18n;
 import net.buycraft.plugin.shared.tasks.PlayerJoinCheckTask;
+import net.buycraft.plugin.shared.util.AnalyticsSend;
 import net.minecraft.command.CommandSource;
 import net.minecraft.command.Commands;
 import net.minecraft.server.MinecraftServer;
@@ -41,12 +43,17 @@ import java.io.IOException;
 import java.nio.file.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.Executors;
+import java.util.concurrent.RunnableScheduledFuture;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicLong;
+import java.util.function.Predicate;
 import java.util.logging.Level;
 
-@Mod("buycraft")
+@Mod("buycraftx")
 public class BuycraftPlugin {
 
     private static final Logger LOGGER = LogManager.getLogger("Tebex");
@@ -64,7 +71,7 @@ public class BuycraftPlugin {
     private final List<ForgeScheduledTask> scheduledTasks = new ArrayList<>();
 
     private MinecraftServer server;
-    private ScheduledExecutorService executor;
+    private static ScheduledExecutorService executor;
 
     private BuyCraftAPI apiClient;
     private DuePlayerFetcher duePlayerFetcher;
@@ -72,7 +79,7 @@ public class BuycraftPlugin {
     private OkHttpClient httpClient;
     private IBuycraftPlatform platform;
     private CommandExecutor commandExecutor;
-    private BuycraftI18n i18n;
+//    private BuycraftI18n i18n; //TODO Re-enable when forge fixes resource loading
     private PostCompletedCommandsTask completedCommandsTask;
     private PlayerJoinCheckTask playerJoinCheckTask;
 
@@ -81,12 +88,20 @@ public class BuycraftPlugin {
         MinecraftForge.EVENT_BUS.register(this);
     }
 
+    public static class Debug implements Predicate<RunnableScheduledFuture<?>> {
+
+        @Override
+        public boolean test(RunnableScheduledFuture<?> runnableScheduledFuture) {
+            return !runnableScheduledFuture.isPeriodic();
+        }
+    }
+
     // As as close to an onEnable as we are ever going to get :(
     @SubscribeEvent
     public void onServerStarting(FMLServerStartingEvent event) {
         if (event.getServer().isDedicatedServer()) {
             server = event.getServer();
-            executor = Executors.newSingleThreadScheduledExecutor(r -> new Thread(r, "Buycraft Scheduler Thread"));
+            executor = Executors.newScheduledThreadPool(2, r -> new Thread(r, "Buycraft Scheduler Thread"));
 
             platform = new ForgeBuycraftPlatform(this);
 
@@ -117,7 +132,8 @@ public class BuycraftPlugin {
                 return;
             }
 
-            i18n = configuration.createI18n();
+//            i18n = configuration.createI18n(); //TODO Re-enable when forge fixes resource loading
+            getLogger().warn("Forcing english translations while we wait on a forge bugfix!");
             httpClient = Setup.okhttp(baseDirectory.resolve("cache").toFile());
 
             if (configuration.isCheckForUpdates()) {
@@ -156,13 +172,14 @@ public class BuycraftPlugin {
 
             if (serverInformation != null) {
                 scheduledTasks.add(ForgeScheduledTask.Builder.create()
+                        .withAsync(true)
                         .withInterval(20 * 60 * 60 * 24)
                         .withTask(() -> {
-//                            try {
-//                                AnalyticsSend.postServerInformation(httpClient, configuration.getServerKey(), platform, server.isServerInOnlineMode());
-//                            } catch (IOException e) {
-//                                getLogger().warn("Can't send analytics", e);
-//                            }
+                            try {
+                                AnalyticsSend.postServerInformation(httpClient, configuration.getServerKey(), platform, server.isServerInOnlineMode());
+                            } catch (IOException e) {
+                                getLogger().warn("Can't send analytics", e);
+                            }
                         })
                         .build());
             }
@@ -212,6 +229,7 @@ public class BuycraftPlugin {
 
                 if (task.getInterval() > -1 && task.getCurrentIntervalTicks() > 0) {
                     task.setCurrentIntervalTicks(task.getCurrentIntervalTicks() - 1);
+                    getLogger().info("task" +task.getTask()+ " has "+task.getCurrentIntervalTicks()+" ticks left");
                     return;
                 }
 
@@ -222,6 +240,7 @@ public class BuycraftPlugin {
                         platform.log(Level.SEVERE, "Error executing scheduled task!", e);
                     }
                 } else {
+                    getLogger().info("scheduled task "+task.getTask() +" #"+debugCount.computeIfAbsent(task.getTask(), key -> new AtomicLong(0)).incrementAndGet()+" onto scheduler");
                     executor.submit(task.getTask());
                 }
 
@@ -232,6 +251,8 @@ public class BuycraftPlugin {
             scheduledTasks.removeIf(task -> task.getCurrentDelay() <= 0 && task.getInterval() <= -1);
         }
     }
+
+    private static final Map<Runnable, AtomicLong> debugCount = Maps.newHashMap();
 
     public Logger getLogger() {
         return LOGGER;
@@ -298,9 +319,9 @@ public class BuycraftPlugin {
         return commandExecutor;
     }
 
-    public BuycraftI18n getI18n() {
-        return i18n;
-    }
+//    public BuycraftI18n getI18n() {
+//        return i18n;
+//    }
 
     public PostCompletedCommandsTask getCompletedCommandsTask() {
         return completedCommandsTask;

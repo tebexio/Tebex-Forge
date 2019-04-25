@@ -20,13 +20,13 @@ public class BuyCommand implements Command<CommandSource> {
     @Override
     public int run(CommandContext<CommandSource> context) throws CommandSyntaxException {
         if(plugin.getServerInformation() == null) {
-            ForgeMessageUtil.sendMessage(context.getSource(), new TextComponentString(plugin.getI18n().get("information_no_server"))
+            ForgeMessageUtil.sendMessage(context.getSource(), new TextComponentString(ForgeMessageUtil.format("information_no_server"))
                     .setStyle(BuycraftPlugin.ERROR_STYLE));
             return 1;
         }
 
         ForgeMessageUtil.sendMessage(context.getSource(), new TextComponentString("                                            ").applyTextStyles(TextFormatting.STRIKETHROUGH));
-        ForgeMessageUtil.sendMessage(context.getSource(), new TextComponentString("To view the webstore, click this link: ").applyTextStyle(style -> {
+        ForgeMessageUtil.sendMessage(context.getSource(), new TextComponentString(ForgeMessageUtil.format("To view the webstore, click this link: ")).applyTextStyle(style -> {
             style.setColor(TextFormatting.GREEN);
             style.setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, plugin.getServerInformation().getAccount().getDomain()));
         }));

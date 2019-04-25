@@ -22,7 +22,7 @@ public class SecretCmd implements Command<CommandSource> {
     @Override
     public int run(CommandContext<CommandSource> context) throws CommandSyntaxException {
         if (context.getSource().getEntity() != null) {
-            ForgeMessageUtil.sendMessage(context.getSource(), new TextComponentString(plugin.getI18n().get("secret_console_only")).setStyle(BuycraftPlugin.ERROR_STYLE));
+            ForgeMessageUtil.sendMessage(context.getSource(), new TextComponentString(ForgeMessageUtil.format("secret_console_only")).setStyle(BuycraftPlugin.ERROR_STYLE));
             return 0;
         }
 
@@ -35,7 +35,7 @@ public class SecretCmd implements Command<CommandSource> {
                 plugin.updateInformation(client);
             } catch (IOException e) {
                 plugin.getLogger().error("Unable to verify secret", e);
-                ForgeMessageUtil.sendMessage(context.getSource(), new TextComponentString(plugin.getI18n().get("secret_does_not_work")).setStyle(BuycraftPlugin.ERROR_STYLE));
+                ForgeMessageUtil.sendMessage(context.getSource(), new TextComponentString(ForgeMessageUtil.format("secret_does_not_work")).setStyle(BuycraftPlugin.ERROR_STYLE));
                 return;
             }
 
@@ -46,10 +46,10 @@ public class SecretCmd implements Command<CommandSource> {
             try {
                 plugin.saveConfiguration();
             } catch (IOException e) {
-                ForgeMessageUtil.sendMessage(context.getSource(), new TextComponentString(plugin.getI18n().get("secret_cant_be_saved")).setStyle(BuycraftPlugin.ERROR_STYLE));
+                ForgeMessageUtil.sendMessage(context.getSource(), new TextComponentString(ForgeMessageUtil.format("secret_cant_be_saved")).setStyle(BuycraftPlugin.ERROR_STYLE));
             }
 
-            ForgeMessageUtil.sendMessage(context.getSource(), new TextComponentString(plugin.getI18n().get("secret_success",
+            ForgeMessageUtil.sendMessage(context.getSource(), new TextComponentString(ForgeMessageUtil.format("secret_success",
                     information.getServer().getName(), information.getAccount().getName())).setStyle(BuycraftPlugin.SUCCESS_STYLE));
 
             boolean repeatChecks = false;
