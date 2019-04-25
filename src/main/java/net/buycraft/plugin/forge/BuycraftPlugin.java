@@ -229,7 +229,6 @@ public class BuycraftPlugin {
 
                 if (task.getInterval() > -1 && task.getCurrentIntervalTicks() > 0) {
                     task.setCurrentIntervalTicks(task.getCurrentIntervalTicks() - 1);
-                    getLogger().info("task" +task.getTask()+ " has "+task.getCurrentIntervalTicks()+" ticks left");
                     return;
                 }
 
@@ -240,19 +239,16 @@ public class BuycraftPlugin {
                         platform.log(Level.SEVERE, "Error executing scheduled task!", e);
                     }
                 } else {
-                    getLogger().info("scheduled task "+task.getTask() +" #"+debugCount.computeIfAbsent(task.getTask(), key -> new AtomicLong(0)).incrementAndGet()+" onto scheduler");
                     executor.submit(task.getTask());
                 }
 
                 if (task.getInterval() > -1) {
-                    task.setCurrentIntervalTicks(task.getCurrentIntervalTicks());
+                    task.setCurrentIntervalTicks(task.getInterval());
                 }
             });
             scheduledTasks.removeIf(task -> task.getCurrentDelay() <= 0 && task.getInterval() <= -1);
         }
     }
-
-    private static final Map<Runnable, AtomicLong> debugCount = Maps.newHashMap();
 
     public Logger getLogger() {
         return LOGGER;

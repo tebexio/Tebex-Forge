@@ -11,7 +11,6 @@ import net.minecraft.util.text.TextComponentString;
 import java.io.IOException;
 
 public class CouponCmd {
-    private static final int COUPON_PAGE_LIMIT = 10;
     private final BuycraftPlugin plugin;
 
     public CouponCmd(final BuycraftPlugin plugin) {
@@ -19,6 +18,12 @@ public class CouponCmd {
     }
 
     public int create(CommandContext<CommandSource> context) {
+        if (plugin.getApiClient() == null) {
+            ForgeMessageUtil.sendMessage(context.getSource(), new TextComponentString(ForgeMessageUtil.format("need_secret_key"))
+                    .setStyle(BuycraftPlugin.ERROR_STYLE));
+            return 0;
+        }
+
         final Coupon coupon;
         try {
             coupon = CouponUtil.parseArguments(StringArgumentType.getString(context, "data").split(" "));
@@ -43,6 +48,12 @@ public class CouponCmd {
     }
 
     public int delete(CommandContext<CommandSource> context) {
+        if (plugin.getApiClient() == null) {
+            ForgeMessageUtil.sendMessage(context.getSource(), new TextComponentString(ForgeMessageUtil.format("need_secret_key"))
+                    .setStyle(BuycraftPlugin.ERROR_STYLE));
+            return 0;
+        }
+
         String code = StringArgumentType.getString(context, "code");
         plugin.getPlatform().executeAsync(() -> {
             try {
@@ -53,7 +64,6 @@ public class CouponCmd {
             }
         });
 
-//        ForgeMessageUtil.sendMessage(context.getSource(), new TextComponentString("pls3"));
         return 1;
     }
 }
