@@ -7,11 +7,10 @@ version="${file.jarVersion}"
 displayName="BuycraftX"
 displayURL="https://www.tebex.io/"
 authors="Tebex, theminecoder"
-# The description text for the mod (multi line!) (#mandatory)
 description='''
 Forge version of the BuycraftX plugin for servers'''
 
-[[dependencies.buycraft]]
+[[dependencies.buycraftx]]
     modId="forge"
     mandatory=true
     versionRange="[25,)"

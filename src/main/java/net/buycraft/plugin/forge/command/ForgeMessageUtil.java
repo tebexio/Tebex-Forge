@@ -65,7 +65,7 @@ public final class ForgeMessageUtil {
             .put("usage_sendlink", "Sends a package or category link to a player.")
             .build();
 
-    //Look idk, forge methods are still kinda busted in how they work, so a 1 method util it is \o/
+    //Look idk, forge methods are still kinda busted in how they work, so a util it is \o/
     public static void sendMessage(CommandSource source, ITextComponent message) {
         if (source.getEntity() != null) source.getEntity().sendMessage(message);
         else if (source.getServer() != null) source.getServer().sendMessage(message);

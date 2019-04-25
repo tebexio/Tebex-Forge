@@ -51,7 +51,8 @@ public class VersionCheck {
     public void onPostLogin(final PlayerEvent.PlayerLoggedInEvent event) {
         if (event.getPlayer().hasPermissionLevel(2) && !upToDate) {
             plugin.getPlatform().executeAsyncLater(() ->
-                    event.getPlayer().sendMessage(new TextComponentString(ForgeMessageUtil.format("update_available", lastKnownVersion.getVersion()))),
+                            event.getPlayer().sendMessage(new TextComponentString(ForgeMessageUtil.format("update_available", lastKnownVersion.getVersion()))
+                                    .setStyle(BuycraftPlugin.INFO_STYLE)),
                     3, TimeUnit.SECONDS);
         }
     }

@@ -19,7 +19,7 @@ public class CouponCmd {
 
     public int create(CommandContext<CommandSource> context) {
         if (plugin.getApiClient() == null) {
-            ForgeMessageUtil.sendMessage(context.getSource(), new TextComponentString(ForgeMessageUtil.format("need_secret_key"))
+            ForgeMessageUtil.sendMessage(context.getSource(), new TextComponentString(ForgeMessageUtil.format("generic_api_operation_error"))
                     .setStyle(BuycraftPlugin.ERROR_STYLE));
             return 0;
         }
@@ -49,7 +49,7 @@ public class CouponCmd {
 
     public int delete(CommandContext<CommandSource> context) {
         if (plugin.getApiClient() == null) {
-            ForgeMessageUtil.sendMessage(context.getSource(), new TextComponentString(ForgeMessageUtil.format("need_secret_key"))
+            ForgeMessageUtil.sendMessage(context.getSource(), new TextComponentString(ForgeMessageUtil.format("generic_api_operation_error"))
                     .setStyle(BuycraftPlugin.ERROR_STYLE));
             return 0;
         }

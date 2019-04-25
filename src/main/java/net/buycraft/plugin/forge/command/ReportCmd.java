@@ -28,7 +28,8 @@ public class ReportCmd implements Command<CommandSource> {
 
     @Override
     public int run(CommandContext<CommandSource> context) throws CommandSyntaxException {
-        ForgeMessageUtil.sendMessage(context.getSource(), new TextComponentString(ForgeMessageUtil.format("report_wait")).setStyle(BuycraftPlugin.SUCCESS_STYLE));
+        ForgeMessageUtil.sendMessage(context.getSource(), new TextComponentString(ForgeMessageUtil.format("report_wait"))
+                .setStyle(BuycraftPlugin.SUCCESS_STYLE));
 
         plugin.getPlatform().executeAsync(() -> {
             String serverIP = plugin.getServer().getServerHostname().trim().isEmpty() ? "0.0.0.0" : plugin.getServer().getServerHostname().trim();
@@ -49,9 +50,11 @@ public class ReportCmd implements Command<CommandSource> {
 
             try (BufferedWriter w = Files.newBufferedWriter(p, StandardCharsets.UTF_8, StandardOpenOption.CREATE_NEW)) {
                 w.write(generated);
-                ForgeMessageUtil.sendMessage(context.getSource(), new TextComponentString(ForgeMessageUtil.format("report_saved", p.toAbsolutePath().toString())).setStyle(BuycraftPlugin.INFO_STYLE));
+                ForgeMessageUtil.sendMessage(context.getSource(), new TextComponentString(ForgeMessageUtil.format("report_saved", p.toAbsolutePath().toString()))
+                        .setStyle(BuycraftPlugin.INFO_STYLE));
             } catch (IOException e) {
-                ForgeMessageUtil.sendMessage(context.getSource(), new TextComponentString(ForgeMessageUtil.format("report_cant_save")).setStyle(BuycraftPlugin.ERROR_STYLE));
+                ForgeMessageUtil.sendMessage(context.getSource(), new TextComponentString(ForgeMessageUtil.format("report_cant_save"))
+                        .setStyle(BuycraftPlugin.ERROR_STYLE));
                 plugin.getLogger().info(generated);
             }
         });
