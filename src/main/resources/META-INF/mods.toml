@@ -1,0 +1,18 @@
+modLoader="javafml" #mandatory
+loaderVersion="[25,)" #mandatory (24 is current forge version)
+
+[[mods]]
+modId="buycraftx"
+version="${file.jarVersion}"
+displayName="BuycraftX"
+displayURL="https://www.tebex.io/"
+authors="Tebex, theminecoder"
+description='''
+Forge version of the BuycraftX plugin for servers'''
+
+[[dependencies.buycraftx]]
+    modId="forge"
+    mandatory=true
+    versionRange="[25,)"
+    ordering="NONE"
+    side="BOTH"
