@@ -3,6 +3,7 @@ package net.buycraft.plugin.forge.command;
 import com.google.common.collect.ImmutableMap;
 import net.minecraft.command.CommandSource;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraftforge.fml.loading.moddiscovery.ModFile;
 
 import java.text.MessageFormat;
 import java.util.Map;
@@ -11,8 +12,8 @@ public final class ForgeMessageUtil {
 
     //This is my lazy way to not have to change every single string in the project
     private static final Map<String, String> englishTranslations = ImmutableMap.<String, String>builder()
-            .put("no_permission", "You don't have permission to use Buycraft administrative commands.")
-            .put("usage", "Usage for the Buycraft plugin:")
+            .put("no_permission", "You don't have permission to use Tebex administrative commands.")
+            .put("usage", "Usage for the Tebex plugin:")
             .put("usage_forcecheck", "Forces a purchase check.")
             .put("usage_information", "Retrieves public information about the webstore this server is associated with.")
             .put("usage_refresh", "Refreshes the list of categories and packages.")
@@ -34,8 +35,8 @@ public final class ForgeMessageUtil {
             .put("report_wait", "Please wait while we generate a report...")
             .put("report_saved", "Your report has been saved as {0}. Please include this information when contacting support.")
             .put("report_cant_save", "Unable to save report to the disk. The report has been sent to the console.")
-            .put("secret_console_only", "For security reasons, your Buycraft secret key must be set via the console.")
-            .put("secret_need_key", "You must specify a secret. You can find your secret at https://server.buycraft.net/settings/servers.")
+            .put("secret_console_only", "For security reasons, your Tebex secret key must be set via the console.")
+            .put("secret_need_key", "You must specify a secret. You can find your secret at https://server.tebex.io/settings/servers.")
             .put("secret_does_not_work", "The secret you provided does not work. Please check the secret and try again.")
             .put("secret_cant_be_saved", "Warning: The secret could not be saved to your configuration file.")
             .put("secret_success", "This server is now registered as server {0} for the web store {1}.")
@@ -51,9 +52,9 @@ public final class ForgeMessageUtil {
             .put("nothing_in_category", "There are no items in this category.")
             .put("cant_check_out", "An error occurred while generating your checkout link. Try again later.")
             .put("to_buy_this_package", "To buy your package, click this link:")
-            .put("update_available", "A new version of BuycraftX ({0}) is available. Go to your server panel at https://server.buycraft.net/plugins to download the update.")
+            .put("update_available", "A new version of BuycraftX ({0}) is available. Go to your server panel at https://server.tebex.io/plugins to download the update.")
             .put("usage_coupon_subcommands", "Usage: /tebex coupon <create|delete>")
-            .put("generic_api_operation_error", "An error occurred while communicating with the Buycraft API. Please ensure your secret key is correct.")
+            .put("generic_api_operation_error", "An error occurred while communicating with the Tebex API. Please ensure your secret key is correct.")
             .put("coupon_creation_arg_parse_failure", "There was an error while parsing your coupon creation command.")
             .put("coupon_creation_success", "Coupon {0} created!")
             .put("no_coupon_specified", "You did not specify a coupon code.")
