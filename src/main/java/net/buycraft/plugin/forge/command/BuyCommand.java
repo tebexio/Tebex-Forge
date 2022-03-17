@@ -4,12 +4,12 @@ import com.mojang.brigadier.Command;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.buycraft.plugin.forge.BuycraftPlugin;
-import net.minecraft.command.CommandSource;
-import net.minecraft.util.text.TextComponentString;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.event.ClickEvent;
+import net.minecraft.ChatFormatting;
+import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.network.chat.ClickEvent;
+import net.minecraft.network.chat.TextComponent;
 
-public class BuyCommand implements Command<CommandSource> {
+public class BuyCommand implements Command<CommandSourceStack> {
 
     private BuycraftPlugin plugin;
 
@@ -18,24 +18,24 @@ public class BuyCommand implements Command<CommandSource> {
     }
 
     @Override
-    public int run(CommandContext<CommandSource> context) throws CommandSyntaxException {
+    public int run(CommandContext<CommandSourceStack> context) throws CommandSyntaxException {
         if(plugin.getServerInformation() == null) {
-            ForgeMessageUtil.sendMessage(context.getSource(), new TextComponentString(ForgeMessageUtil.format("information_no_server"))
+            ForgeMessageUtil.sendMessage(context.getSource(), new TextComponent(ForgeMessageUtil.format("information_no_server"))
                     .setStyle(BuycraftPlugin.ERROR_STYLE));
             return 1;
         }
 
-        ForgeMessageUtil.sendMessage(context.getSource(), new TextComponentString("                                            ").applyTextStyles(TextFormatting.STRIKETHROUGH));
-        ForgeMessageUtil.sendMessage(context.getSource(), new TextComponentString(ForgeMessageUtil.format("To view the webstore, click this link: ")).applyTextStyle(style -> {
-            style.setColor(TextFormatting.GREEN);
-            style.setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, plugin.getServerInformation().getAccount().getDomain()));
+        ForgeMessageUtil.sendMessage(context.getSource(), new TextComponent("                                            ").withStyle(ChatFormatting.STRIKETHROUGH));
+        ForgeMessageUtil.sendMessage(context.getSource(), new TextComponent(ForgeMessageUtil.format("To view the webstore, click this link: ")).withStyle(style -> {
+            return style.withColor(ChatFormatting.GREEN)
+                    .withClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, plugin.getServerInformation().getAccount().getDomain()));
         }));
-        ForgeMessageUtil.sendMessage(context.getSource(), new TextComponentString(plugin.getServerInformation().getAccount().getDomain()).applyTextStyle(style -> {
-            style.setColor(TextFormatting.BLUE);
-            style.setUnderlined(true);
-            style.setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, plugin.getServerInformation().getAccount().getDomain()));
+        ForgeMessageUtil.sendMessage(context.getSource(), new TextComponent(plugin.getServerInformation().getAccount().getDomain()).withStyle().withStyle(style -> {
+            return style.withColor(ChatFormatting.BLUE)
+                    .setUnderlined(true)
+                    .withClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, plugin.getServerInformation().getAccount().getDomain()));
         }));
-        ForgeMessageUtil.sendMessage(context.getSource(), new TextComponentString("                                            ").applyTextStyles(TextFormatting.STRIKETHROUGH));
+        ForgeMessageUtil.sendMessage(context.getSource(), new TextComponent("                                            ").withStyle(ChatFormatting.STRIKETHROUGH));
         return 1;
     }
 }

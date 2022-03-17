@@ -2,6 +2,7 @@ package net.buycraft.plugin.forge;
 
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
+import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.buycraft.plugin.BuyCraftAPI;
 import net.buycraft.plugin.IBuycraftPlatform;
 import net.buycraft.plugin.data.QueuedPlayer;
@@ -19,18 +20,19 @@ import net.buycraft.plugin.shared.Setup;
 import net.buycraft.plugin.shared.config.BuycraftConfiguration;
 import net.buycraft.plugin.shared.tasks.PlayerJoinCheckTask;
 import net.buycraft.plugin.shared.util.AnalyticsSend;
-import net.minecraft.command.CommandSource;
-import net.minecraft.command.Commands;
+import net.minecraft.ChatFormatting;
+import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.commands.Commands;
+import net.minecraft.network.chat.Style;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.util.text.Style;
-import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.RegisterCommandsEvent;
+import net.minecraftforge.event.TickEvent;
+import net.minecraftforge.event.entity.player.PlayerEvent;
+import net.minecraftforge.event.server.ServerStartingEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.gameevent.PlayerEvent;
-import net.minecraftforge.fml.common.gameevent.TickEvent;
-import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 import okhttp3.OkHttpClient;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -51,9 +53,9 @@ public class BuycraftPlugin {
 
     private static final Logger LOGGER = LogManager.getLogger("Tebex");
 
-    public static final Style SUCCESS_STYLE = new Style().setColor(TextFormatting.GREEN);
-    public static final Style INFO_STYLE = new Style().setColor(TextFormatting.YELLOW);
-    public static final Style ERROR_STYLE = new Style().setColor(TextFormatting.RED);
+    public static final Style SUCCESS_STYLE = Style.EMPTY.withColor(ChatFormatting.GREEN);
+    public static final Style INFO_STYLE = Style.EMPTY.withColor(ChatFormatting.YELLOW);
+    public static final Style ERROR_STYLE = Style.EMPTY.withColor(ChatFormatting.RED);
 
     private final String pluginVersion;
 
@@ -89,23 +91,27 @@ public class BuycraftPlugin {
         }
     }
 
+    @SubscribeEvent
+    public void onCommandRegister(RegisterCommandsEvent event) {
+        //region Commands
+        event.getDispatcher().register(this.configureCommand(Commands.literal("tebex")));
+        event.getDispatcher().register(this.configureCommand(Commands.literal("buycraft")));
+
+        if (!configuration.isDisableBuyCommand())
+            configuration.getBuyCommandName().forEach(cmd ->
+                    event.getDispatcher().register(Commands.literal(cmd).executes(new BuyCommand(this))));
+        //endregion
+
+    }
+
     // As as close to an onEnable as we are ever going to get :(
     @SubscribeEvent
-    public void onServerStarting(FMLServerStartingEvent event) {
+    public void onServerStarting(ServerStartingEvent event) {
         if (event.getServer().isDedicatedServer()) {
             server = event.getServer();
             executor = Executors.newScheduledThreadPool(2, r -> new Thread(r, "Buycraft Scheduler Thread"));
 
             platform = new ForgeBuycraftPlatform(this);
-
-            //region Commands
-            event.getCommandDispatcher().register(this.configureCommand(Commands.literal("tebex")));
-            event.getCommandDispatcher().register(this.configureCommand(Commands.literal("buycraft")));
-
-            if (!configuration.isDisableBuyCommand())
-                configuration.getBuyCommandName().forEach(cmd ->
-                        event.getCommandDispatcher().register(Commands.literal(cmd).executes(new BuyCommand(this))));
-            //endregion
 
             try {
                 try {
@@ -164,12 +170,12 @@ public class BuycraftPlugin {
             scheduledTasks.add(ForgeScheduledTask.Builder.create().withInterval(20).withDelay(20).withTask(playerJoinCheckTask).build());
 
             if (serverInformation != null) {
-                scheduledTasks.add(ForgeScheduledTask.Builder.create()
+                scheduledTasks.add(ForgeScheduledTask.Builder.create()/*server.isServerInOnlineMode()*/
                         .withAsync(true)
                         .withInterval(20 * 60 * 60 * 24)
                         .withTask(() -> {
                             try {
-                                AnalyticsSend.postServerInformation(httpClient, configuration.getServerKey(), platform, server.isServerInOnlineMode());
+                                AnalyticsSend.postServerInformation(httpClient, configuration.getServerKey(), platform, server.usesAuthentication());
                             } catch (IOException e) {
                                 getLogger().warn("Can't send analytics", e);
                             }
@@ -179,10 +185,16 @@ public class BuycraftPlugin {
         }
     }
 
-    private LiteralArgumentBuilder<CommandSource> configureCommand(LiteralArgumentBuilder<CommandSource> command) {
+    private LiteralArgumentBuilder<CommandSourceStack> configureCommand(LiteralArgumentBuilder<CommandSourceStack> command) {
         CouponCmd couponCmd = new CouponCmd(this);
         return command
-                .requires(player -> player.hasPermissionLevel(2))
+                .requires(player -> {
+                    try {
+                        return player.getPlayerOrException().hasPermissions(2);
+                    } catch (CommandSyntaxException e) {
+                        return false;
+                    }
+                })
                 .then(Commands.literal("coupon")
                         .then(Commands.literal("create")
                                 .then(Commands.argument("data", StringArgumentType.greedyString()).executes(couponCmd::create)))
