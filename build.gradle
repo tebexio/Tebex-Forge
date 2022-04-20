@@ -25,7 +25,7 @@ repositories {
 }
 
 minecraft {
-    mappings channel: 'official', version: '1.18.1'
+    mappings channel: 'official', version: '1.18.2'
 
     runs {
         client {
@@ -62,10 +62,13 @@ minecraft {
     }
 }
 
+
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.18.1-39.1.2'
+    minecraft 'net.minecraftforge:forge:1.18.2-40.1.0'
     shadow 'net.buycraft:buycraftx-plugin-shared:12.0.8'
 }
+
+
 
 version = configurations.getByName("shadow").dependencies.find().version // copy common version
 
@@ -76,8 +79,14 @@ shadowJar {
     relocate 'retrofit2', 'net.buycraft.plugin.internal.retrofit2'
     relocate 'com.fasterxml.jackson', 'net.buycraft.plugin.internal.jackson'
 
-    classifier '' // Replace the default JAR
+    //This Fixed Some Error When Building the Mod (If you can find a better way to remove them feel free to)
+    relocate 'com.google.common', 'net.buycraft.plugin.internal.com.google.common'
+    relocate 'com.google.gson', 'net.buycraft.plugin.internal.com.google.gson'
+    relocate 'com.google.thirdparty', 'net.buycraft.plugin.internal.com.google.thirdparty'
+
+    classifier 'fixed' // Replace the default JAR
 }
+
 
 afterEvaluate {
     reobf {
