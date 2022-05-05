@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "electricfencemod",
+  "ingredients": [
+    {
+      "item": "electricfencemod:electric_fence"
+    },
+    {
+      "item": "minecraft:lime_dye"
+    }
+  ],
+  "result": {
+    "item": "electricfencemod:lime_electric_fence"
+  }
+}

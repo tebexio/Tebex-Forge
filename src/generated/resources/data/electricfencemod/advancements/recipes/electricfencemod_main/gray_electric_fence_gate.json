@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "electricfencemod:gray_electric_fence_gate"
+    ]
+  },
+  "criteria": {
+    "electrified": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "electricfencemod:electrical_cabinet"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "electricfencemod:gray_electric_fence_gate"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "electrified",
+      "has_the_recipe"
+    ]
+  ]
+}

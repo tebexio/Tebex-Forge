@@ -1,0 +1,19 @@
+{
+	"variants": {
+		"facing=north": {
+			"model": "electricfencemod:block/electrical_cabinet"
+		},
+		"facing=south": {
+			"model": "electricfencemod:block/electrical_cabinet",
+			"y": 180
+		},
+		"facing=west": {
+			"model": "electricfencemod:block/electrical_cabinet",
+			"y": 270
+		},
+		"facing=east": {
+			"model": "electricfencemod:block/electrical_cabinet",
+			"y": 90
+		}
+	}
+}

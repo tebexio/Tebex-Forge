@@ -1,0 +1,5 @@
+{
+  "electric_fence_idle": { "category": "block", "subtitle": "electricfencemod.electric_fence.idle", "sounds": [ "electricfencemod:electric_fence/electric_fence_idle" ] },
+  "electric_fence_spark": { "category": "block", "subtitle": "electricfencemod.electric_fence.spark", "sounds": [ "electricfencemod:electric_fence/electric_fence_spark" ] }
+
+}

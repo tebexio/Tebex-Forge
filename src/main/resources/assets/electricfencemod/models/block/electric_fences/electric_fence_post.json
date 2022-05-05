@@ -1,0 +1,21 @@
+{
+	"credit": "Pogger",
+	"textures": {
+		"0": "electricfencemod:blocks/building_blocks/fence/bars",
+		"particle": "electricfencemod:blocks/building_blocks/fence/bars"
+	},
+	"elements": [
+		{
+			"from": [7.5, 0, 7.5],
+			"to": [8.5, 16, 8.5],
+			"faces": {
+				"north": {"uv": [0, 6, 1, 11], "texture": "#0"},
+				"east": {"uv": [0, 6, 1, 11], "texture": "#0"},
+				"south": {"uv": [0, 6, 1, 11], "texture": "#0"},
+				"west": {"uv": [0, 6, 1, 11], "texture": "#0"},
+				"up": {"uv": [0, 6, 1, 11], "texture": "#0"},
+				"down": {"uv": [0, 6, 1, 11], "texture": "#0"}
+			}
+		}
+	]
+}

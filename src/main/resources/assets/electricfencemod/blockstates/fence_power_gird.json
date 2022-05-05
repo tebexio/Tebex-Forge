@@ -1,0 +1,7 @@
+{
+	"variants": {
+		"": {
+			"model": "electricfencemod:block/fence_power_gird"
+		}
+	}
+}

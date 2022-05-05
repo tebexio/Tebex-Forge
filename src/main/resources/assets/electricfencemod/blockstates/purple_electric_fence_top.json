@@ -1,0 +1,612 @@
+{
+  "multipart": [
+    {
+      "when": {
+        "facing": "east",
+        "electric_power": "0"
+      },
+      "apply": {
+        "model": "electricfencemod:block/electric_fences/color/purple_electric_fence_top",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "electric_power": "0"
+      },
+      "apply": {
+        "model": "electricfencemod:block/electric_fences/color/purple_electric_fence_top"
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "electric_power": "0"
+      },
+      "apply": {
+        "model": "electricfencemod:block/electric_fences/color/purple_electric_fence_top"
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "electric_power": "0"
+      },
+      "apply": {
+        "model": "electricfencemod:block/electric_fences/color/purple_electric_fence_top",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "electric_power": "1"
+      },
+      "apply": {
+        "model": "electricfencemod:block/electric_fences/color/purple_electric_fence_top_powered",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "electric_power": "1"
+      },
+      "apply": {
+        "model": "electricfencemod:block/electric_fences/color/purple_electric_fence_top_powered"
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "electric_power": "1"
+      },
+      "apply": {
+        "model": "electricfencemod:block/electric_fences/color/purple_electric_fence_top_powered"
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "electric_power": "1"
+      },
+      "apply": {
+        "model": "electricfencemod:block/electric_fences/color/purple_electric_fence_top_powered",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "electric_power": "2"
+      },
+      "apply": {
+        "model": "electricfencemod:block/electric_fences/color/purple_electric_fence_top_powered",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "electric_power": "2"
+      },
+      "apply": {
+        "model": "electricfencemod:block/electric_fences/color/purple_electric_fence_top_powered"
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "electric_power": "2"
+      },
+      "apply": {
+        "model": "electricfencemod:block/electric_fences/color/purple_electric_fence_top_powered"
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "electric_power": "2"
+      },
+      "apply": {
+        "model": "electricfencemod:block/electric_fences/color/purple_electric_fence_top_powered",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "electric_power": "3"
+      },
+      "apply": {
+        "model": "electricfencemod:block/electric_fences/color/purple_electric_fence_top_powered",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "electric_power": "3"
+      },
+      "apply": {
+        "model": "electricfencemod:block/electric_fences/color/purple_electric_fence_top_powered"
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "electric_power": "3"
+      },
+      "apply": {
+        "model": "electricfencemod:block/electric_fences/color/purple_electric_fence_top_powered"
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "electric_power": "3"
+      },
+      "apply": {
+        "model": "electricfencemod:block/electric_fences/color/purple_electric_fence_top_powered",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "electric_power": "4"
+      },
+      "apply": {
+        "model": "electricfencemod:block/electric_fences/color/purple_electric_fence_top_powered",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "electric_power": "4"
+      },
+      "apply": {
+        "model": "electricfencemod:block/electric_fences/color/purple_electric_fence_top_powered"
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "electric_power": "4"
+      },
+      "apply": {
+        "model": "electricfencemod:block/electric_fences/color/purple_electric_fence_top_powered"
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "electric_power": "4"
+      },
+      "apply": {
+        "model": "electricfencemod:block/electric_fences/color/purple_electric_fence_top_powered",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "electric_power": "5"
+      },
+      "apply": {
+        "model": "electricfencemod:block/electric_fences/color/purple_electric_fence_top_powered",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "electric_power": "5"
+      },
+      "apply": {
+        "model": "electricfencemod:block/electric_fences/color/purple_electric_fence_top_powered"
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "electric_power": "5"
+      },
+      "apply": {
+        "model": "electricfencemod:block/electric_fences/color/purple_electric_fence_top_powered"
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "electric_power": "5"
+      },
+      "apply": {
+        "model": "electricfencemod:block/electric_fences/color/purple_electric_fence_top_powered",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "electric_power": "6"
+      },
+      "apply": {
+        "model": "electricfencemod:block/electric_fences/color/purple_electric_fence_top_powered",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "electric_power": "6"
+      },
+      "apply": {
+        "model": "electricfencemod:block/electric_fences/color/purple_electric_fence_top_powered"
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "electric_power": "6"
+      },
+      "apply": {
+        "model": "electricfencemod:block/electric_fences/color/purple_electric_fence_top_powered"
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "electric_power": "6"
+      },
+      "apply": {
+        "model": "electricfencemod:block/electric_fences/color/purple_electric_fence_top_powered",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "electric_power": "7"
+      },
+      "apply": {
+        "model": "electricfencemod:block/electric_fences/color/purple_electric_fence_top_powered",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "electric_power": "7"
+      },
+      "apply": {
+        "model": "electricfencemod:block/electric_fences/color/purple_electric_fence_top_powered"
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "electric_power": "7"
+      },
+      "apply": {
+        "model": "electricfencemod:block/electric_fences/color/purple_electric_fence_top_powered"
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "electric_power": "7"
+      },
+      "apply": {
+        "model": "electricfencemod:block/electric_fences/color/purple_electric_fence_top_powered",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "electric_power": "8"
+      },
+      "apply": {
+        "model": "electricfencemod:block/electric_fences/color/purple_electric_fence_top_powered",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "electric_power": "8"
+      },
+      "apply": {
+        "model": "electricfencemod:block/electric_fences/color/purple_electric_fence_top_powered"
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "electric_power": "8"
+      },
+      "apply": {
+        "model": "electricfencemod:block/electric_fences/color/purple_electric_fence_top_powered"
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "electric_power": "8"
+      },
+      "apply": {
+        "model": "electricfencemod:block/electric_fences/color/purple_electric_fence_top_powered",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "electric_power": "9"
+      },
+      "apply": {
+        "model": "electricfencemod:block/electric_fences/color/purple_electric_fence_top_powered",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "electric_power": "9"
+      },
+      "apply": {
+        "model": "electricfencemod:block/electric_fences/color/purple_electric_fence_top_powered"
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "electric_power": "9"
+      },
+      "apply": {
+        "model": "electricfencemod:block/electric_fences/color/purple_electric_fence_top_powered"
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "electric_power": "9"
+      },
+      "apply": {
+        "model": "electricfencemod:block/electric_fences/color/purple_electric_fence_top_powered",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "electric_power": "10"
+      },
+      "apply": {
+        "model": "electricfencemod:block/electric_fences/color/purple_electric_fence_top_powered",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "electric_power": "10"
+      },
+      "apply": {
+        "model": "electricfencemod:block/electric_fences/color/purple_electric_fence_top_powered"
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "electric_power": "10"
+      },
+      "apply": {
+        "model": "electricfencemod:block/electric_fences/color/purple_electric_fence_top_powered"
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "electric_power": "10"
+      },
+      "apply": {
+        "model": "electricfencemod:block/electric_fences/color/purple_electric_fence_top_powered",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "electric_power": "11"
+      },
+      "apply": {
+        "model": "electricfencemod:block/electric_fences/color/purple_electric_fence_top_powered",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "electric_power": "11"
+      },
+      "apply": {
+        "model": "electricfencemod:block/electric_fences/color/purple_electric_fence_top_powered"
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "electric_power": "11"
+      },
+      "apply": {
+        "model": "electricfencemod:block/electric_fences/color/purple_electric_fence_top_powered"
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "electric_power": "11"
+      },
+      "apply": {
+        "model": "electricfencemod:block/electric_fences/color/purple_electric_fence_top_powered",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "electric_power": "12"
+      },
+      "apply": {
+        "model": "electricfencemod:block/electric_fences/color/purple_electric_fence_top_powered",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "electric_power": "12"
+      },
+      "apply": {
+        "model": "electricfencemod:block/electric_fences/color/purple_electric_fence_top_powered"
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "electric_power": "12"
+      },
+      "apply": {
+        "model": "electricfencemod:block/electric_fences/color/purple_electric_fence_top_powered"
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "electric_power": "12"
+      },
+      "apply": {
+        "model": "electricfencemod:block/electric_fences/color/purple_electric_fence_top_powered",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "electric_power": "13"
+      },
+      "apply": {
+        "model": "electricfencemod:block/electric_fences/color/purple_electric_fence_top_powered",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "electric_power": "13"
+      },
+      "apply": {
+        "model": "electricfencemod:block/electric_fences/color/purple_electric_fence_top_powered"
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "electric_power": "13"
+      },
+      "apply": {
+        "model": "electricfencemod:block/electric_fences/color/purple_electric_fence_top_powered"
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "electric_power": "13"
+      },
+      "apply": {
+        "model": "electricfencemod:block/electric_fences/color/purple_electric_fence_top_powered",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "electric_power": "14"
+      },
+      "apply": {
+        "model": "electricfencemod:block/electric_fences/color/purple_electric_fence_top_powered",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "electric_power": "14"
+      },
+      "apply": {
+        "model": "electricfencemod:block/electric_fences/color/purple_electric_fence_top_powered"
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "electric_power": "14"
+      },
+      "apply": {
+        "model": "electricfencemod:block/electric_fences/color/purple_electric_fence_top_powered"
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "electric_power": "14"
+      },
+      "apply": {
+        "model": "electricfencemod:block/electric_fences/color/purple_electric_fence_top_powered",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "electric_power": "15"
+      },
+      "apply": {
+        "model": "electricfencemod:block/electric_fences/color/purple_electric_fence_top_powered",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "electric_power": "15"
+      },
+      "apply": {
+        "model": "electricfencemod:block/electric_fences/color/purple_electric_fence_top_powered"
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "electric_power": "15"
+      },
+      "apply": {
+        "model": "electricfencemod:block/electric_fences/color/purple_electric_fence_top_powered"
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "electric_power": "15"
+      },
+      "apply": {
+        "model": "electricfencemod:block/electric_fences/color/purple_electric_fence_top_powered",
+        "y": 90
+      }
+    }
+  ]
+}

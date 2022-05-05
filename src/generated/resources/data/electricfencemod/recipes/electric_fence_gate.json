@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "electricfencemod",
+  "pattern": [
+    "ii ",
+    "bb ",
+    "ii "
+  ],
+  "key": {
+    "i": {
+      "tag": "forge:ingots/iron"
+    },
+    "b": {
+      "item": "minecraft:iron_bars"
+    }
+  },
+  "result": {
+    "item": "electricfencemod:electric_fence_gate"
+  }
+}

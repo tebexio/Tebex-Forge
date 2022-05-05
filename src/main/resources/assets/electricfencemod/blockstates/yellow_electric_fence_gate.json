@@ -1,0 +1,176 @@
+{
+  "multipart": [
+    {
+      "when": {
+        "open": "true",
+        "facing": "east",
+        "is_top": "true"
+      },
+      "apply": {
+        "model": "electricfencemod:block/electric_fences/color/yellow_electric_fence_gate_top_opened",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "open": "true",
+        "facing": "north",
+        "is_top": "true"
+      },
+      "apply": {
+        "model": "electricfencemod:block/electric_fences/color/yellow_electric_fence_gate_top_opened"
+      }
+    },
+    {
+      "when": {
+        "open": "true",
+        "facing": "south",
+        "is_top": "true"
+      },
+      "apply": {
+        "model": "electricfencemod:block/electric_fences/color/yellow_electric_fence_gate_top_opened",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "open": "true",
+        "facing": "west",
+        "is_top": "true"
+      },
+      "apply": {
+        "model": "electricfencemod:block/electric_fences/color/yellow_electric_fence_gate_top_opened",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "open": "false",
+        "facing": "east",
+        "is_top": "true"
+      },
+      "apply": {
+        "model": "electricfencemod:block/electric_fences/color/yellow_electric_fence_gate_top",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "open": "false",
+        "facing": "north",
+        "is_top": "true"
+      },
+      "apply": {
+        "model": "electricfencemod:block/electric_fences/color/yellow_electric_fence_gate_top"
+      }
+    },
+    {
+      "when": {
+        "open": "false",
+        "facing": "south",
+        "is_top": "true"
+      },
+      "apply": {
+        "model": "electricfencemod:block/electric_fences/color/yellow_electric_fence_gate_top",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "open": "false",
+        "facing": "west",
+        "is_top": "true"
+      },
+      "apply": {
+        "model": "electricfencemod:block/electric_fences/color/yellow_electric_fence_gate_top",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "open": "true",
+        "facing": "east",
+        "is_top": "false"
+      },
+      "apply": {
+        "model": "electricfencemod:block/electric_fences/color/yellow_electric_fence_gate_opened",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "open": "true",
+        "facing": "north",
+        "is_top": "false"
+      },
+      "apply": {
+        "model": "electricfencemod:block/electric_fences/color/yellow_electric_fence_gate_opened"
+      }
+    },
+    {
+      "when": {
+        "open": "true",
+        "facing": "south",
+        "is_top": "false"
+      },
+      "apply": {
+        "model": "electricfencemod:block/electric_fences/color/yellow_electric_fence_gate_opened",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "open": "true",
+        "facing": "west",
+        "is_top": "false"
+      },
+      "apply": {
+        "model": "electricfencemod:block/electric_fences/color/yellow_electric_fence_gate_opened",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "open": "false",
+        "facing": "east",
+        "is_top": "false"
+      },
+      "apply": {
+        "model": "electricfencemod:block/electric_fences/color/yellow_electric_fence_gate",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "open": "false",
+        "facing": "north",
+        "is_top": "false"
+      },
+      "apply": {
+        "model": "electricfencemod:block/electric_fences/color/yellow_electric_fence_gate"
+      }
+    },
+    {
+      "when": {
+        "open": "false",
+        "facing": "south",
+        "is_top": "false"
+      },
+      "apply": {
+        "model": "electricfencemod:block/electric_fences/color/yellow_electric_fence_gate",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "open": "false",
+        "facing": "west",
+        "is_top": "false"
+      },
+      "apply": {
+        "model": "electricfencemod:block/electric_fences/color/yellow_electric_fence_gate",
+        "y": 270
+      }
+    }
+  ]
+}
