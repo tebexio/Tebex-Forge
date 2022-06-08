@@ -6,7 +6,8 @@ import net.buycraft.plugin.data.Coupon;
 import net.buycraft.plugin.forge.BuycraftPlugin;
 import net.buycraft.plugin.shared.util.CouponUtil;
 import net.minecraft.commands.CommandSourceStack;
-import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.Component;
+
 
 import java.io.IOException;
 
@@ -19,7 +20,7 @@ public class CouponCmd {
 
     public int create(CommandContext<CommandSourceStack> context) {
         if (plugin.getApiClient() == null) {
-            ForgeMessageUtil.sendMessage(context.getSource(), new TextComponent(ForgeMessageUtil.format("generic_api_operation_error"))
+            ForgeMessageUtil.sendMessage(context.getSource(), Component.literal(ForgeMessageUtil.format("generic_api_operation_error"))
                     .setStyle(BuycraftPlugin.ERROR_STYLE));
             return 0;
         }
@@ -28,7 +29,7 @@ public class CouponCmd {
         try {
             coupon = CouponUtil.parseArguments(StringArgumentType.getString(context, "data").split(" "));
         } catch (Exception e) {
-            ForgeMessageUtil.sendMessage(context.getSource(), new TextComponent(ForgeMessageUtil.format("coupon_creation_arg_parse_failure", e.getMessage()))
+            ForgeMessageUtil.sendMessage(context.getSource(), Component.literal(ForgeMessageUtil.format("coupon_creation_arg_parse_failure", e.getMessage()))
                     .setStyle(BuycraftPlugin.ERROR_STYLE));
             return 0;
         }
@@ -36,10 +37,10 @@ public class CouponCmd {
         plugin.getPlatform().executeAsync(() -> {
             try {
                 plugin.getApiClient().createCoupon(coupon).execute();
-                ForgeMessageUtil.sendMessage(context.getSource(), new TextComponent(ForgeMessageUtil.format("coupon_creation_success", coupon.getCode()))
+                ForgeMessageUtil.sendMessage(context.getSource(), Component.literal(ForgeMessageUtil.format("coupon_creation_success", coupon.getCode()))
                         .setStyle(BuycraftPlugin.SUCCESS_STYLE));
             } catch (IOException e) {
-                ForgeMessageUtil.sendMessage(context.getSource(), new TextComponent(ForgeMessageUtil.format("generic_api_operation_error"))
+                ForgeMessageUtil.sendMessage(context.getSource(), Component.literal(ForgeMessageUtil.format("generic_api_operation_error"))
                         .setStyle(BuycraftPlugin.ERROR_STYLE));
             }
         });
@@ -49,7 +50,7 @@ public class CouponCmd {
 
     public int delete(CommandContext<CommandSourceStack> context) {
         if (plugin.getApiClient() == null) {
-            ForgeMessageUtil.sendMessage(context.getSource(), new TextComponent(ForgeMessageUtil.format("generic_api_operation_error"))
+            ForgeMessageUtil.sendMessage(context.getSource(), Component.literal(ForgeMessageUtil.format("generic_api_operation_error"))
                     .setStyle(BuycraftPlugin.ERROR_STYLE));
             return 0;
         }
@@ -58,9 +59,9 @@ public class CouponCmd {
         plugin.getPlatform().executeAsync(() -> {
             try {
                 plugin.getApiClient().deleteCoupon(code).execute();
-                ForgeMessageUtil.sendMessage(context.getSource(), new TextComponent(ForgeMessageUtil.format("coupon_deleted")).setStyle(BuycraftPlugin.SUCCESS_STYLE));
+                ForgeMessageUtil.sendMessage(context.getSource(), Component.literal(ForgeMessageUtil.format("coupon_deleted")).setStyle(BuycraftPlugin.SUCCESS_STYLE));
             } catch (Exception e) {
-                ForgeMessageUtil.sendMessage(context.getSource(), new TextComponent(e.getMessage()).setStyle(BuycraftPlugin.ERROR_STYLE));
+                ForgeMessageUtil.sendMessage(context.getSource(), Component.literal(e.getMessage()).setStyle(BuycraftPlugin.ERROR_STYLE));
             }
         });
 

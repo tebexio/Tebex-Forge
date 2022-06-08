@@ -8,7 +8,7 @@ import net.buycraft.plugin.BuyCraftAPI;
 import net.buycraft.plugin.data.responses.ServerInformation;
 import net.buycraft.plugin.forge.BuycraftPlugin;
 import net.minecraft.commands.CommandSourceStack;
-import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.Component;
 
 import java.io.IOException;
 
@@ -22,7 +22,7 @@ public class SecretCmd implements Command<CommandSourceStack> {
     @Override
     public int run(CommandContext<CommandSourceStack> context) throws CommandSyntaxException {
         if (context.getSource().getEntity() != null) {
-            ForgeMessageUtil.sendMessage(context.getSource(), new TextComponent(ForgeMessageUtil.format("secret_console_only"))
+            ForgeMessageUtil.sendMessage(context.getSource(), Component.literal(ForgeMessageUtil.format("secret_console_only"))
                     .setStyle(BuycraftPlugin.ERROR_STYLE));
             return 0;
         }
@@ -36,7 +36,7 @@ public class SecretCmd implements Command<CommandSourceStack> {
                 plugin.updateInformation(client);
             } catch (IOException e) {
                 plugin.getLogger().error("Unable to verify secret", e);
-                ForgeMessageUtil.sendMessage(context.getSource(), new TextComponent(ForgeMessageUtil.format("secret_does_not_work"))
+                ForgeMessageUtil.sendMessage(context.getSource(), Component.literal(ForgeMessageUtil.format("secret_does_not_work"))
                         .setStyle(BuycraftPlugin.ERROR_STYLE));
                 return;
             }
@@ -48,11 +48,11 @@ public class SecretCmd implements Command<CommandSourceStack> {
             try {
                 plugin.saveConfiguration();
             } catch (IOException e) {
-                ForgeMessageUtil.sendMessage(context.getSource(), new TextComponent(ForgeMessageUtil.format("secret_cant_be_saved"))
+                ForgeMessageUtil.sendMessage(context.getSource(), Component.literal(ForgeMessageUtil.format("secret_cant_be_saved"))
                         .setStyle(BuycraftPlugin.ERROR_STYLE));
             }
 
-            ForgeMessageUtil.sendMessage(context.getSource(), new TextComponent(ForgeMessageUtil.format("secret_success",
+            ForgeMessageUtil.sendMessage(context.getSource(), Component.literal(ForgeMessageUtil.format("secret_success",
                     information.getServer().getName(), information.getAccount().getName())).setStyle(BuycraftPlugin.SUCCESS_STYLE));
 
             boolean repeatChecks = currentKey.equals("INVALID");

@@ -4,6 +4,7 @@ import com.mojang.brigadier.Command;
 import com.mojang.brigadier.context.CommandContext;
 import net.buycraft.plugin.forge.BuycraftPlugin;
 import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
 
 public class ForceCheckCmd implements Command<CommandSourceStack> {
@@ -16,19 +17,19 @@ public class ForceCheckCmd implements Command<CommandSourceStack> {
     @Override
     public int run(CommandContext<CommandSourceStack> context) {
         if (plugin.getApiClient() == null) {
-            ForgeMessageUtil.sendMessage(context.getSource(), new TextComponent(ForgeMessageUtil.format("need_secret_key"))
+            ForgeMessageUtil.sendMessage(context.getSource(), Component.literal(ForgeMessageUtil.format("need_secret_key"))
                     .setStyle(BuycraftPlugin.ERROR_STYLE));
             return 1;
         }
 
         if (plugin.getDuePlayerFetcher().inProgress()) {
-            ForgeMessageUtil.sendMessage(context.getSource(), new TextComponent(ForgeMessageUtil.format("already_checking_for_purchases"))
+            ForgeMessageUtil.sendMessage(context.getSource(), Component.literal(ForgeMessageUtil.format("already_checking_for_purchases"))
                     .setStyle(BuycraftPlugin.ERROR_STYLE));
             return 1;
         }
 
         plugin.getExecutor().submit(() -> plugin.getDuePlayerFetcher().run(false));
-        ForgeMessageUtil.sendMessage(context.getSource(), new TextComponent(ForgeMessageUtil.format("forcecheck_queued"))
+        ForgeMessageUtil.sendMessage(context.getSource(), Component.literal(ForgeMessageUtil.format("forcecheck_queued"))
                 .setStyle(BuycraftPlugin.SUCCESS_STYLE));
         return 1;
     }

@@ -6,7 +6,7 @@ import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.buycraft.plugin.forge.BuycraftPlugin;
 import net.buycraft.plugin.shared.util.ReportBuilder;
 import net.minecraft.commands.CommandSourceStack;
-import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.Component;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -28,7 +28,7 @@ public class ReportCmd implements Command<CommandSourceStack> {
 
     @Override
     public int run(CommandContext<CommandSourceStack> context) throws CommandSyntaxException {
-        ForgeMessageUtil.sendMessage(context.getSource(), new TextComponent(ForgeMessageUtil.format("report_wait"))
+        ForgeMessageUtil.sendMessage(context.getSource(), Component.literal(ForgeMessageUtil.format("report_wait"))
                 .setStyle(BuycraftPlugin.SUCCESS_STYLE));
 
         plugin.getPlatform().executeAsync(() -> {
@@ -50,10 +50,10 @@ public class ReportCmd implements Command<CommandSourceStack> {
 
             try (BufferedWriter w = Files.newBufferedWriter(p, StandardCharsets.UTF_8, StandardOpenOption.CREATE_NEW)) {
                 w.write(generated);
-                ForgeMessageUtil.sendMessage(context.getSource(), new TextComponent(ForgeMessageUtil.format("report_saved", p.toAbsolutePath().toString()))
+                ForgeMessageUtil.sendMessage(context.getSource(), Component.literal(ForgeMessageUtil.format("report_saved", p.toAbsolutePath().toString()))
                         .setStyle(BuycraftPlugin.INFO_STYLE));
             } catch (IOException e) {
-                ForgeMessageUtil.sendMessage(context.getSource(), new TextComponent(ForgeMessageUtil.format("report_cant_save"))
+                ForgeMessageUtil.sendMessage(context.getSource(), Component.literal(ForgeMessageUtil.format("report_cant_save"))
                         .setStyle(BuycraftPlugin.ERROR_STYLE));
                 plugin.getLogger().info(generated);
             }
