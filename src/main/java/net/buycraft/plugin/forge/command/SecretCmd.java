@@ -10,6 +10,7 @@ import net.buycraft.plugin.forge.BuycraftPlugin;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.network.chat.Component;
 
+
 import java.io.IOException;
 
 public class SecretCmd implements Command<CommandSourceStack> {

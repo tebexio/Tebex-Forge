@@ -68,8 +68,8 @@ public final class ForgeMessageUtil {
 
     //Look idk, forge methods are still kinda busted in how they work, so a util it is \o/
     public static void sendMessage(CommandSourceStack source, Component message) {
-        if (source.getEntity() != null) source.getEntity().sendMessage(message, Util.NIL_UUID);
-        else source.getServer().sendMessage(message, Util.NIL_UUID);
+        if (source.getEntity() != null) source.getEntity().sendSystemMessage(message);
+        else source.getServer().sendSystemMessage(message);
     }
 
     public static String format(String message, Object... params) {

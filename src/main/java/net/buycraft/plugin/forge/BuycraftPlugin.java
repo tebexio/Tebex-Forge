@@ -18,6 +18,7 @@ import net.buycraft.plugin.forge.command.*;
 import net.buycraft.plugin.forge.util.VersionCheck;
 import net.buycraft.plugin.shared.Setup;
 import net.buycraft.plugin.shared.config.BuycraftConfiguration;
+import net.buycraft.plugin.shared.config.BuycraftI18n;
 import net.buycraft.plugin.shared.tasks.PlayerJoinCheckTask;
 import net.buycraft.plugin.shared.util.AnalyticsSend;
 import net.minecraft.ChatFormatting;
@@ -74,7 +75,7 @@ public class BuycraftPlugin {
     private OkHttpClient httpClient;
     private IBuycraftPlatform platform;
     private CommandExecutor commandExecutor;
-//    private BuycraftI18n i18n; //TODO Re-enable when forge fixes resource loading
+    private BuycraftI18n i18n;
     private PostCompletedCommandsTask completedCommandsTask;
     private PlayerJoinCheckTask playerJoinCheckTask;
 
@@ -131,7 +132,7 @@ public class BuycraftPlugin {
                 return;
             }
 
-//            i18n = configuration.createI18n(); //TODO Re-enable when forge fixes resource loading
+            i18n = configuration.createI18n();
             getLogger().warn("Forcing english translations while we wait on a forge bugfix!");
             httpClient = Setup.okhttp(baseDirectory.resolve("cache").toFile());
 
@@ -320,9 +321,9 @@ public class BuycraftPlugin {
         return commandExecutor;
     }
 
-//    public BuycraftI18n getI18n() {
-//        return i18n;
-//    }
+ public BuycraftI18n getI18n() {
+        return i18n;
+    }
 
     public PostCompletedCommandsTask getCompletedCommandsTask() {
         return completedCommandsTask;

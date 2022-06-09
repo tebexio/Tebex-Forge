@@ -5,7 +5,6 @@ import com.mojang.brigadier.context.CommandContext;
 import net.buycraft.plugin.forge.BuycraftPlugin;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
 
 public class ForceCheckCmd implements Command<CommandSourceStack> {
     private final BuycraftPlugin plugin;
