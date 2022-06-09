@@ -4,10 +4,9 @@ import net.buycraft.plugin.data.responses.Version;
 import net.buycraft.plugin.forge.BuycraftPlugin;
 import net.buycraft.plugin.forge.command.ForgeMessageUtil;
 import net.buycraft.plugin.shared.util.VersionUtil;
-import net.minecraft.util.text.TextComponentString;
-import net.minecraftforge.common.MinecraftForge;
+import net.minecraft.network.chat.Component;
+import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.gameevent.PlayerEvent;
 
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
@@ -49,9 +48,9 @@ public class VersionCheck {
 
     @SubscribeEvent
     public void onPostLogin(final PlayerEvent.PlayerLoggedInEvent event) {
-        if (event.getPlayer().hasPermissionLevel(2) && !upToDate) {
+        if (event.getPlayer().hasPermissions(2) && !upToDate) {
             plugin.getPlatform().executeAsyncLater(() ->
-                            event.getPlayer().sendMessage(new TextComponentString(ForgeMessageUtil.format("update_available", lastKnownVersion.getVersion()))
+                            event.getPlayer().sendSystemMessage(Component.literal(ForgeMessageUtil.format("update_available", lastKnownVersion.getVersion()))
                                     .setStyle(BuycraftPlugin.INFO_STYLE)),
                     3, TimeUnit.SECONDS);
         }

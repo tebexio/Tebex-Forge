@@ -19,9 +19,8 @@ public class ForgeScheduledTask {
         return async;
     }
 
-    public long getDelay() {
-        return delay;
-    }
+
+    public long getDelay() {return delay;}
 
     public long getInterval() {
         return interval;
