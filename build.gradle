@@ -1,12 +1,12 @@
 buildscript {
     repositories {
-        maven { url = 'https://files.minecraftforge.net/maven' }
-        jcenter()
+        maven { url = 'https://maven.minecraftforge.net' }
         mavenCentral()
+        maven { url "https://plugins.gradle.org/m2/" }
     }
     dependencies {
-        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '3.+', changing: true
-        classpath 'com.github.jengelman.gradle.plugins:shadow:4.0.4'
+        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
+        classpath "gradle.plugin.com.github.johnrengelman:shadow:7.1.2"
     }
 }
 apply plugin: 'net.minecraftforge.gradle'
@@ -16,16 +16,16 @@ apply plugin: 'com.github.johnrengelman.shadow'
 
 
 group = 'net.buycraft' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
-archivesBaseName = 'buycraftx-forge'
+archivesBaseName = 'buycraftx-forge-1.19.2'
 
-sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
+java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
 repositories {
     mavenLocal()
 }
 
 minecraft {
-    mappings channel: 'snapshot', version: '20180921-1.13'
+    mappings channel: 'official', version: '1.19.2'
 
     runs {
         client {
@@ -63,8 +63,8 @@ minecraft {
 }
 
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.13.2-25.0.175'
-    shadow 'net.buycraft:buycraftx-plugin-shared:12.0.1'
+    minecraft 'net.minecraftforge:forge:1.19.2-43.1.47'
+    shadow 'net.buycraft:buycraftx-plugin-shared:12.0.8'
 }
 
 version = configurations.getByName("shadow").dependencies.find().version // copy common version
@@ -75,6 +75,8 @@ shadowJar {
     relocate 'okio', 'net.buycraft.plugin.internal.okio'
     relocate 'retrofit2', 'net.buycraft.plugin.internal.retrofit2'
     relocate 'com.fasterxml.jackson', 'net.buycraft.plugin.internal.jackson'
+    //TODO remove Com.google from being complied with the code
+    relocate 'com.google', 'net.buycraft.plugin.internal.google'
 
     classifier '' // Replace the default JAR
 }

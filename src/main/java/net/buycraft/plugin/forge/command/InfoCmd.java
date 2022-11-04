@@ -3,16 +3,15 @@ package net.buycraft.plugin.forge.command;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.context.CommandContext;
 import net.buycraft.plugin.forge.BuycraftPlugin;
-import net.minecraft.command.CommandSource;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextComponentString;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.event.ClickEvent;
-import net.minecraft.util.text.event.HoverEvent;
+import net.minecraft.ChatFormatting;
+import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.network.chat.ClickEvent;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.HoverEvent;
 
 import java.util.stream.Stream;
 
-public class InfoCmd implements Command<CommandSource> {
+public class InfoCmd implements Command<CommandSourceStack> {
     private final BuycraftPlugin plugin;
 
     public InfoCmd(final BuycraftPlugin plugin) {
@@ -20,36 +19,36 @@ public class InfoCmd implements Command<CommandSource> {
     }
 
     @Override
-    public int run(CommandContext<CommandSource> context) {
+    public int run(CommandContext<CommandSourceStack> context) {
         if (plugin.getApiClient() == null) {
-            ForgeMessageUtil.sendMessage(context.getSource(), new TextComponentString(ForgeMessageUtil.format("generic_api_operation_error"))
+            ForgeMessageUtil.sendMessage(context.getSource(), Component.literal(ForgeMessageUtil.format("generic_api_operation_error"))
                     .setStyle(BuycraftPlugin.ERROR_STYLE));
             return 1;
         }
 
         if (plugin.getServerInformation() == null) {
-            ForgeMessageUtil.sendMessage(context.getSource(), new TextComponentString(ForgeMessageUtil.format("information_no_server"))
+            ForgeMessageUtil.sendMessage(context.getSource(), Component.literal(ForgeMessageUtil.format("information_no_server"))
                     .setStyle(BuycraftPlugin.ERROR_STYLE));
             return 1;
         }
 
         String webstoreURL = plugin.getServerInformation().getAccount().getDomain();
 
-        ITextComponent webstore = new TextComponentString(webstoreURL)
-                .applyTextStyle(style -> {
-                    style.setColor(TextFormatting.GREEN);
-                    style.setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, webstoreURL));
-                    style.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new TextComponentString(webstoreURL)));
+        Component webstore = Component.literal(webstoreURL)
+                .withStyle(style -> {
+                    return style.withColor(ChatFormatting.GREEN)
+                    .withClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, webstoreURL))
+                    .withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, Component.literal(webstoreURL)));
                 });
 
-        ITextComponent server = new TextComponentString(plugin.getServerInformation().getServer().getName()).applyTextStyle(TextFormatting.GREEN);
+        Component server = Component.literal(plugin.getServerInformation().getServer().getName()).withStyle(ChatFormatting.GREEN);
 
         Stream.of(
-                new TextComponentString(ForgeMessageUtil.format("information_title") + " ").applyTextStyle(TextFormatting.GRAY),
-                new TextComponentString(ForgeMessageUtil.format("information_sponge_server") + " ").applyTextStyle(TextFormatting.GRAY).appendSibling(server),
-                new TextComponentString(ForgeMessageUtil.format("information_currency", plugin.getServerInformation().getAccount().getCurrency().getIso4217()))
-                        .applyTextStyle(TextFormatting.GRAY),
-                new TextComponentString(ForgeMessageUtil.format("information_domain", "")).applyTextStyle(TextFormatting.GRAY).appendSibling(webstore)
+                Component.literal(ForgeMessageUtil.format("information_title") + " ").withStyle(ChatFormatting.GRAY),
+                Component.literal(ForgeMessageUtil.format("information_sponge_server") + " ").withStyle(ChatFormatting.GRAY).append(server),
+                Component.literal(ForgeMessageUtil.format("information_currency", plugin.getServerInformation().getAccount().getCurrency().getIso4217()))
+                        .withStyle(ChatFormatting.GRAY),
+                Component.literal(ForgeMessageUtil.format("information_domain", "")).withStyle(ChatFormatting.GRAY).append(webstore)
         ).forEach(message -> ForgeMessageUtil.sendMessage(context.getSource(), message));
 
         return 1;
