@@ -210,12 +210,12 @@ public class BuycraftPlugin {
 
     @SubscribeEvent
     public void onPlayerJoin(PlayerEvent.PlayerLoggedInEvent event) {
-        if (event.getPlayer().getServer() != null && event.getPlayer().getServer().isDedicatedServer()) {
+        if (event.getEntity().getServer() != null && event.getEntity().getServer().isDedicatedServer()) {
             if (apiClient == null) {
                 return;
             }
 
-            QueuedPlayer qp = duePlayerFetcher.fetchAndRemoveDuePlayer(event.getPlayer().getName().getString());
+            QueuedPlayer qp = duePlayerFetcher.fetchAndRemoveDuePlayer(event.getEntity().getName().getString());
             if (qp != null) {
                 playerJoinCheckTask.queue(qp);
             }
